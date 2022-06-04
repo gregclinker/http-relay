@@ -1,0 +1,17 @@
+---
+verbose: true
+repeat: 1
+interval: 1
+timeout: 20
+namespace: "test namespace"
+source:
+  name: "source"
+  url: "http://source:5556/"
+  method: "GET"
+sink:
+  name: "sink"
+  url: "https://sink:8088/"
+  method: "POST"
+  headers:
+    - name: "Authorization"
+      value: "Splunk hggh-hghg-hghg-hghgh"
