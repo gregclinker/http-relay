@@ -6,7 +6,7 @@
 *.iws
 target
 .idea
-.iml
+*.iml
 build
 .gradle
 dependency-reduced-pom.xml
