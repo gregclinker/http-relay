@@ -13,7 +13,8 @@ class RelayCronTest {
 
     @Test
     public void test1() throws Exception {
-        final RelayHttpClientTest relayHttpClient = new RelayHttpClientTest();
+        // use a fake http client & set the response body to test data
+        final TestRelayHttpClient relayHttpClient = new TestRelayHttpClient();
         relayHttpClient.setReturnBody(IOUtils.toString(getClass().getResourceAsStream("/jmx-mertics-small.test"), Charset.defaultCharset()));
 
         final InputStream inputStream = getClass().getResourceAsStream("/testConfig.yaml");

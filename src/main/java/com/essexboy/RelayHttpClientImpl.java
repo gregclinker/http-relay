@@ -68,8 +68,8 @@ public class RelayHttpClientImpl implements RelayHttpClient {
                 }
             }
             HttpResponse response = httpClient.execute(request);
-            if (response.getStatusLine().getStatusCode() != 200) {
-                throw new RuntimeException("error " + httpEndPoint + " returned" + response.getStatusLine().getStatusCode());
+            if (response.getStatusLine().getStatusCode() < 200 || response.getStatusLine().getStatusCode() > 299) {
+                throw new RuntimeException("error " + httpEndPoint + " returned " + response.getStatusLine().getStatusCode());
             }
             return EntityUtils.toString(response.getEntity());
         } finally {

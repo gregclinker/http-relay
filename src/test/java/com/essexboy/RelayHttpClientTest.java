@@ -1,24 +1,43 @@
 package com.essexboy;
 
-import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-@Setter
-public class RelayHttpClientTest implements RelayHttpClient {
+import java.net.UnknownHostException;
 
-    final static Logger LOGGER = LoggerFactory.getLogger(RelayHttpClientTest.class);
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-    private String returnBody;
+class RelayHttpClientTest {
 
-    @Override
-    public String execute(HttpEndPoint httpEndPoint, String body) {
-        LOGGER.debug("execute {}, body {}", httpEndPoint, body);
-        return returnBody;
+    @Test
+    public void get() throws Exception {
+        final HttpEndPoint httpEndPoint = new HttpEndPoint();
+        httpEndPoint.setUrl("https://reqres.in/api/products/3");
+        httpEndPoint.setMethod("GET");
+        final String response = new RelayHttpClientImpl().execute(httpEndPoint);
+        assertNotNull(response);
     }
 
-    @Override
-    public String execute(HttpEndPoint httpEndPoint) throws Exception {
-        return execute(httpEndPoint, null);
+    @Test
+    public void post() throws Exception {
+        final HttpEndPoint httpEndPoint = new HttpEndPoint();
+        httpEndPoint.setUrl("https://reqres.in/api/products/3");
+        httpEndPoint.setMethod("POST");
+        String requestBody = "{\n" +
+                "    \"name\": \"morpheus\",\n" +
+                "    \"job\": \"leader\"\n" +
+                "}";
+        final String responseBody = new RelayHttpClientImpl().execute(httpEndPoint, requestBody);
+        assertNotNull(responseBody);
+    }
+
+    @Test
+    public void error() throws Exception {
+        final HttpEndPoint httpEndPoint = new HttpEndPoint();
+        httpEndPoint.setUrl("https://bad-host");
+        httpEndPoint.setMethod("GET");
+        Assertions.assertThrows(UnknownHostException.class, () -> {
+            new RelayHttpClientImpl().execute(httpEndPoint);
+        });
     }
 }

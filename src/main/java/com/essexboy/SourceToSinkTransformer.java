@@ -16,6 +16,7 @@ public class SourceToSinkTransformer {
     }
 
     private static String splitNameValue(String string) {
+        // split on anything followed by a space, followed by anything that's not a space
         final String[] split = string.split("\\s+(?=\\S+$)");
         return "name=" + split[0] + ", value=" + split[1];
     }
