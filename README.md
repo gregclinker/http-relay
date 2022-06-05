@@ -1,6 +1,6 @@
 ****Http Relay****
 
-A java application that runs on a cron timer, pulling data from a source http endpoint & pushes it to a sink http endpoint.
+A java application that runs on a cron timer, pulling data from a source http endpoint & pushing it to a sink http endpoint.
 
 To build a runnable jar:
 
